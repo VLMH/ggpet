@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:9.4-alpine
+    volumes:
+      - ~/.ggpet/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: ggpet_development
