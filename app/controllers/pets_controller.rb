@@ -6,9 +6,10 @@ class PetsController < ApplicationController
 
   def index
     page = (params['page'] || 1).to_i
+    @pets = Pet.page(page).per(PERPAGE)
     json_response(
-      Pet.limit(PERPAGE).offset(skip(page, PERPAGE)),
-      pagination(page, Pet.count, PERPAGE)
+      @pets,
+      pagination(@pets, PERPAGE)
     )
   end
 

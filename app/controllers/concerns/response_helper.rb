@@ -3,11 +3,11 @@ module ResponseHelper
     render json: data, root: "data", meta: meta, status: status
   end
 
-  def pagination(page, count, per_page)
+  def pagination(objects, per_page)
     {
-      page: page,
-      page_count: (count.to_f / per_page).ceil,
-      count: count,
+      page: objects.current_page,
+      page_count: objects.total_pages,
+      count: objects.total_count,
       perPage: per_page,
     }
   end
