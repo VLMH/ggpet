@@ -5,5 +5,11 @@ Rails.application.routes.draw do
         get "matches"
       end
     end
+
+    resources :customers, only: [:index, :show, :create] do
+      member do
+        get "matches"
+      end
+    end
   end
 end
