@@ -1,6 +1,4 @@
 class PetsController < ApplicationController
-  include ResponseHelper
-  include ExceptionHandler
 
   PERPAGE = 30
 
