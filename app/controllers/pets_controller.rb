@@ -5,7 +5,7 @@ class PetsController < ApplicationController
   PERPAGE = 30
 
   def index
-    page = params['page'] || 1
+    page = (params['page'] || 1).to_i
     json_response(
       Pet.limit(PERPAGE).offset(skip(page, PERPAGE)),
       pagination(page, Pet.count, PERPAGE)
