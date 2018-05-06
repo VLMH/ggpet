@@ -1,10 +1,6 @@
 module ResponseHelper
-  def json_response(body, meta = {}, status = :ok)
-    content = {
-      meta: meta,
-      data: body,
-    }
-    render json: content, status: status
+  def json_response(data, meta = {}, status = :ok)
+    render json: data, root: "data", meta: meta, status: status
   end
 
   def pagination(page, count, per_page)
