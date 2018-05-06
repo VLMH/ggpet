@@ -1,9 +1,20 @@
 class PetsController < ApplicationController
+  include ResponseHelper
   include ExceptionHandler
+
+  PERPAGE = 30
+
+  def index
+    page = params['page'] || 1
+    json_response(
+      Pet.limit(PERPAGE).offset(skip(page, PERPAGE)),
+      pagination(page, Pet.count, PERPAGE)
+    )
+  end
 
   def create
     @pet = Pet.create!(pet_params)
-    render json: @pet, status: :created
+    json_response(@pet, {}, :created)
   end
 
   private
