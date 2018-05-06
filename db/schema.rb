@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_06_093541) do
+ActiveRecord::Schema.define(version: 2018_05_06_144645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customer_preferences", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.string "species", default: "", null: false
+    t.string "breed", default: "", null: false
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_customer_preferences_on_customer_id"
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
@@ -32,4 +42,5 @@ ActiveRecord::Schema.define(version: 2018_05_06_093541) do
     t.index ["species"], name: "index_pets_on_species"
   end
 
+  add_foreign_key "customer_preferences", "customers"
 end
