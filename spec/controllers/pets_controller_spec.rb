@@ -21,6 +21,26 @@ RSpec.describe PetsController, type: :controller do
     it_should_behave_like "get pet list", 100, {page: 4}, 10
   end
 
+  # get pet details
+  describe "GET /v1/pets/:id" do
+    context "success" do
+      let(:pet) { create(:pet) }
+
+      it "return pet details" do
+        get :show, params: {id: pet.id}
+        expect(response).to have_http_status(200)
+        expect(json_data).to include("id" => pet.id)
+      end
+    end
+
+    context "fail" do
+      it "return 404 not found" do
+        get :show, params: {id: 999}
+        expect(response).to have_http_status(404)
+      end
+    end
+  end
+
   # create pets
   describe "POST /v1/pets" do
     context "success" do
