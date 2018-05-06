@@ -2,6 +2,6 @@ class PetSerializer < ActiveModel::Serializer
   attributes :id, :name, :species, :breed, :age, :available_at
 
   def available_at
-    object.available_at.strftime('%F')
+    object.available_at ? object.available_at.strftime('%F') : nil
   end
 end
