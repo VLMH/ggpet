@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
   # GET /customers
   def index
     page = (params['page'] || 1).to_i
-    @customers = Customer.page(page).per(PERPAGE)
+    @customers = Customer.includes(:customer_preferences).page(page).per(PERPAGE)
     json_response(
       @customers,
       pagination(@customers, PERPAGE)
