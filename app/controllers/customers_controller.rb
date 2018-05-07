@@ -20,10 +20,7 @@ class CustomersController < ApplicationController
 
   # POST /customers
   def create
-    @customer = Customer.new(customer_params)
-    @customer.customer_preferences << CustomerPreference.new(preference_params)
-    @customer.save!
-
+    @customer = Customer.create!(customer_params)
     json_response(@customer, {}, :created)
   end
 
@@ -36,9 +33,5 @@ class CustomersController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def customer_params
       params.permit(:name)
-    end
-
-    def preference_params
-      params.permit(:species, :breed, :age)
     end
 end
