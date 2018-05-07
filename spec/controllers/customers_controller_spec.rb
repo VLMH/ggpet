@@ -44,7 +44,17 @@ RSpec.describe CustomersController, type: :controller do
   # Create customer
   describe "POST /v1/customers" do
     context "success" do
-      let(:params) { {name: "World"} }
+      let(:params) do
+        {
+          name: "World",
+          preferences: [
+            {
+              species: "dog",
+              breed: ["poodle"]
+            }
+          ]
+        }
+      end
 
       it "creates a new Customer" do
         expect {
@@ -56,7 +66,10 @@ RSpec.describe CustomersController, type: :controller do
         post :create, params: params
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(json_data).to have_key("id")
+        ["id", "name", "preferences"].each do |field|
+          expect(json_data).to have_key(field)
+        end
+        expect(json_data["preferences"].first).to eq(params[:preferences].first.stringify_keys)
       end
     end
 

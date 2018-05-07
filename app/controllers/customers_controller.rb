@@ -20,7 +20,10 @@ class CustomersController < ApplicationController
 
   # POST /customers
   def create
-    @customer = Customer.create!(customer_params)
+    @customer = Customer.create!(
+      name: params[:name],
+      preferences: params[:preferences]
+    )
     json_response(@customer, {}, :created)
   end
 
@@ -28,10 +31,5 @@ class CustomersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
       @customer = Customer.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def customer_params
-      params.permit(:name)
     end
 end
