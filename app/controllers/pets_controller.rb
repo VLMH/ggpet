@@ -1,4 +1,5 @@
 class PetsController < ApplicationController
+  before_action :set_pet, only: [:show, :matching]
 
   PERPAGE = 30
 
@@ -12,7 +13,7 @@ class PetsController < ApplicationController
   end
 
   def show
-    json_response(Pet.find(params['id']))
+    json_response(@pet)
   end
 
   def create
@@ -20,9 +21,17 @@ class PetsController < ApplicationController
     json_response(@pet, {}, :created)
   end
 
+  def matching
+    json_response(MatchingService.new.match_all_customer_by_pet(@pet))
+  end
+
   private
 
   def pet_params
     params.permit(:name, :age, :species, :breed, :available_at)
+  end
+
+  def set_pet
+    @pet = Pet.find(params['id'])
   end
 end
