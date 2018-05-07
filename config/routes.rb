@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   scope :v1 do
     resources :pets, only: [:index, :show, :create] do
       member do
-        get "matches"
+        get "matches", action: "matching"
       end
     end
 
