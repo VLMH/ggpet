@@ -30,6 +30,7 @@ RSpec.describe CustomersController, type: :controller do
         get :show, params: {id: customer.id}
         expect(response).to have_http_status(200)
         expect(json_data).to include("id" => customer.id)
+        expect(json_data).to have_key("customer_preferences")
       end
     end
 
