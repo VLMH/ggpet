@@ -44,9 +44,9 @@ RSpec.describe CustomersController, type: :controller do
   # Create customer
   describe "POST /v1/customers" do
     context "success" do
-      let(:params) do
+      let(:params_name) { {name: "World"} }
+      let(:params_pref) do
         {
-          name: "World",
           preferences: [
             {
               species: "dog",
@@ -55,6 +55,7 @@ RSpec.describe CustomersController, type: :controller do
           ]
         }
       end
+      let(:params) { params_name.merge(params_pref) }
 
       it "creates a new Customer" do
         expect {
@@ -70,6 +71,16 @@ RSpec.describe CustomersController, type: :controller do
           expect(json_data).to have_key(field)
         end
         expect(json_data["preferences"].first).to eq(params[:preferences].first.stringify_keys)
+      end
+
+      it "create customer with no preferences" do
+        post :create, params: params_name
+        expect(response).to have_http_status(:created)
+        expect(response.content_type).to eq('application/json')
+        ["id", "name", "preferences"].each do |field|
+          expect(json_data).to have_key(field)
+        end
+        expect(json_data["preferences"]).to eq([])
       end
     end
 
