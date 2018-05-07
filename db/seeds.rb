@@ -11,7 +11,9 @@ Customer.create([
   { name: 'Pet Lover' },
   { name: 'Dog Lover', preferences: { dog: {} } },
   { name: 'Cat Lover', preferences: { cat: {} } },
-  { name: 'Dog n Cat Lover', preferences: { dog: {}, cat: {} } },
+  { name: 'Balinese Lover', preferences: { cat: { breed: ['balinese'] } } },
+  { name: 'Dog n Cat Lover', preferences: { dog: {}, cat: { breed: ['abyssinians'] } } },
   { name: 'Labrador Lover', preferences: { dog: { breed: ['labrador'] } } },
   { name: 'Puppy Lover', preferences: { dog: { age_max: 1 } } },
+  { name: 'Cat Lover', preferences: { bird: {} } },
 ])
