@@ -22,7 +22,7 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.create!(
       name: params[:name],
-      preferences: params[:preferences] || []
+      preferences: params[:preferences]
     )
     json_response(@customer, {}, :created)
   end
