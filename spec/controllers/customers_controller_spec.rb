@@ -44,14 +44,7 @@ RSpec.describe CustomersController, type: :controller do
   # Create customer
   describe "POST /v1/customers" do
     context "success" do
-      let(:params) do
-        {
-          name: "World",
-          species: "fish",
-          breed: "gold fish",
-          age: 0
-        }
-      end
+      let(:params) { {name: "World"} }
 
       it "creates a new Customer" do
         expect {
@@ -70,12 +63,6 @@ RSpec.describe CustomersController, type: :controller do
     context "fail" do
       it "renders a JSON response with errors for the new customer" do
         post :create
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
-      end
-
-      it "invalid preference params" do
-        post :create, params: { name: "Victor" }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
