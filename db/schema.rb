@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2018_05_06_093541) do
   create_table "customers", force: :cascade do |t|
     t.string "name", null: false
     t.jsonb "preferences"
+    t.integer "preference_age_min", default: 0, null: false
+    t.integer "preference_age_max", default: 500, null: false, comment: "assume pets have max 500 age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["preferences"], name: "index_customers_on_preferences", using: :gin
