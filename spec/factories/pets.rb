@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :pet do
     name { Faker::Name.name }
-    age { 2 }
+    age { rand(100) }
     species { 'dog' }
-    breed { 'poodle' }
-    available_at { Time.now }
+    breed { Faker::Dog.breed }
+    available_at { Time.now.strftime("%F") }
   end
 end
