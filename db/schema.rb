@@ -16,15 +16,15 @@ ActiveRecord::Schema.define(version: 2018_05_06_093541) do
   enable_extension "plpgsql"
 
   create_table "customers", force: :cascade do |t|
-    t.string "name"
-    t.jsonb "preferences", default: []
+    t.string "name", null: false
+    t.jsonb "preferences", default: [], null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["preferences"], name: "index_customers_on_preferences", using: :gin
   end
 
   create_table "pets", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.integer "age"
     t.string "species", default: "", null: false
     t.string "breed", default: "", null: false
