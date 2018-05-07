@@ -17,8 +17,10 @@ ActiveRecord::Schema.define(version: 2018_05_06_093541) do
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
+    t.jsonb "preferences"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["preferences"], name: "index_customers_on_preferences", using: :gin
   end
 
   create_table "pets", force: :cascade do |t|
