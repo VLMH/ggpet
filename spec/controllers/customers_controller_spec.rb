@@ -47,12 +47,13 @@ RSpec.describe CustomersController, type: :controller do
       let(:params_name) { {name: "World"} }
       let(:params_pref) do
         {
-          preferences: [
-            {
-              species: "dog",
-              breed: ["poodle"]
+          preferences: {
+            "dog": {
+              breed: ["poodle"],
+              age_min: 2,
+              age_max: 5,
             }
-          ]
+          }
         }
       end
       let(:params) { params_name.merge(params_pref) }
@@ -70,7 +71,7 @@ RSpec.describe CustomersController, type: :controller do
         ["id", "name", "preferences"].each do |field|
           expect(json_data).to have_key(field)
         end
-        expect(json_data["preferences"].first).to eq(params[:preferences].first.stringify_keys)
+        expect(json_data["preferences"]).to have_key("dog")
       end
 
       it "create customer with no preferences" do
@@ -80,7 +81,7 @@ RSpec.describe CustomersController, type: :controller do
         ["id", "name", "preferences"].each do |field|
           expect(json_data).to have_key(field)
         end
-        expect(json_data["preferences"]).to eq([])
+        expect(json_data["preferences"]).to be_nil
       end
     end
 
