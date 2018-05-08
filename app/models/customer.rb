@@ -1,4 +1,8 @@
 class Customer < ApplicationRecord
+
+  PREF_AGE_MIN = 0
+  PREF_AGE_MAX = 500
+
   validates_presence_of :name
 
   # like any pets

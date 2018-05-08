@@ -56,7 +56,13 @@ RSpec.describe CustomersController, type: :controller do
           }
         }
       end
-      let(:params) { params_name.merge(params_pref) }
+      let(:params_age) do
+        {
+          preference_age_min: 1,
+          preference_age_max: 3,
+        }
+      end
+      let(:params) { params_name.merge(params_pref).merge(params_age) }
 
       it "creates a new Customer" do
         expect {
@@ -68,7 +74,7 @@ RSpec.describe CustomersController, type: :controller do
         post :create, params: params
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        ["id", "name", "preferences"].each do |field|
+        ["id", "name", "preferences", "preference_age_min", "preference_age_max"].each do |field|
           expect(json_data).to have_key(field)
         end
         expect(json_data["preferences"]).to have_key("dog")
