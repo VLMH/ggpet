@@ -38,5 +38,13 @@ RSpec.describe Customer, type: :model do
         expect(customers.first.preferences["cat"]).to include("breed" => ["abyssinians"])
       end
     end
+
+    context "#like_age_between" do
+      it "returns puppy lover" do
+        customers = Customer.like_age_between(0, 1)
+        expect(customers.size).to eq(1)
+        expect(customers.first.preference_age_max).to be <= 1
+      end
+    end
   end
 end
