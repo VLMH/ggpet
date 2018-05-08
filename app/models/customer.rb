@@ -7,11 +7,17 @@ class Customer < ApplicationRecord
   # like specific species with any breeds
   scope :like_species, -> (species) do
     where("preferences ? :species", species: species)
-    .where.not("preferences->'#{species}' ? 'breed'")
+    .where.not("preferences->:species ? 'breed'", {species: species})
   end
 
   # like specific breed
   scope :like_breed, -> (species, breed) do
-    where("preferences#>'{#{species}, breed}' ? '#{breed}'")
+    where("preferences#>:path ? :breed", {path: "{#{species}, breed}", breed: breed})
+  end
+
+  # like pet in specific age range
+  scope :like_age_between, -> (min, max) do
+    where("preference_age_min >= ?", min)
+    .where("preference_age_max <= ?", max)
   end
 end
