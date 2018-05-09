@@ -10,4 +10,12 @@ class Pet < ApplicationRecord
 
   # scopes
   scope :available, -> { where("available_at <= ?", Time.now.strftime('%F'))}
+
+  def adoptable?
+    available? && !adopted_by
+  end
+
+  def available?
+    available_at <= Time.now
+  end
 end
