@@ -22,8 +22,8 @@ class Customer < ApplicationRecord
   end
 
   # like pet in specific age range
-  scope :like_age_between, -> (min, max) do
-    where("preference_age_min >= ?", min)
-    .where("preference_age_max <= ?", max)
+  scope :like_age, -> (age) do
+    where("preference_age_min <= ?", age)
+    .where("preference_age_max >= ?", age)
   end
 end

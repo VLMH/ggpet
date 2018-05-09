@@ -6,11 +6,11 @@ RSpec.describe Customer, type: :model do
   end
 
   describe "scopes" do
-    before(:each) do
-      Rails.application.load_seed
-    end
-
     context "#without_preferences" do
+      before(:each) do
+        Rails.application.load_seed
+      end
+
       it "returns 1 customer" do
         customers = Customer.without_preferences
         expect(customers.size).to eq(1)
@@ -19,6 +19,10 @@ RSpec.describe Customer, type: :model do
     end
 
     context "#like_species" do
+      before(:each) do
+        Rails.application.load_seed
+      end
+
       it "returns a bird lover" do
         customers = Customer.like_species("bird")
         expect(customers.size).to eq(1)
@@ -32,6 +36,10 @@ RSpec.describe Customer, type: :model do
     end
 
     context "#like_breed" do
+      before(:each) do
+        Rails.application.load_seed
+      end
+
       it "returns abyssinians lover" do
         customers = Customer.like_breed("cat", "abyssinians")
         expect(customers.size).to eq(1)
@@ -39,12 +47,17 @@ RSpec.describe Customer, type: :model do
       end
     end
 
-    context "#like_age_between" do
-      it "returns puppy lover" do
-        customers = Customer.like_age_between(0, 1)
-        expect(customers.size).to eq(1)
-        expect(customers.first.preference_age_max).to be <= 1
+    context "#like_age" do
+      before(:each) do
+        create(:customer, preference_age_min: 10, preference_age_max: 20)
       end
+
+      it { expect(Customer.like_age(9).count).to eq(0) }
+      it { expect(Customer.like_age(10).count).to eq(1) }
+      it { expect(Customer.like_age(11).count).to eq(1) }
+      it { expect(Customer.like_age(19).count).to eq(1) }
+      it { expect(Customer.like_age(20).count).to eq(1) }
+      it { expect(Customer.like_age(21).count).to eq(0) }
     end
   end
 end
