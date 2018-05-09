@@ -25,4 +25,15 @@ RSpec.describe Pet, type: :model do
       it { expect(Pet.available.count).to eq(1) }
     end
   end
+
+  describe "#adoptable?" do
+    it { expect(build(:pet).adoptable?).to be_truthy }
+    it { expect(build(:unavailable_pet).adoptable?).to be_falsey }
+    it { expect(build(:adopted_pet).adoptable?).to be_falsey }
+  end
+
+  describe "#available?" do
+    it { expect(build(:pet).available?).to be_truthy }
+    it { expect(build(:unavailable_pet).available?).to be_falsey }
+  end
 end
