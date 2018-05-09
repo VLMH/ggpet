@@ -74,9 +74,10 @@ RSpec.describe MatchingService, type: :service do
       create(:pet, species: "dog", breed: "poodle", age: 3)
       create(:pet, species: "dog", breed: "labrador", age: 5)
       create(:pet, species: "cat", breed: "balinese", age: 7)
+      create(:pet, species: "bird", breed: "parrot", available_at: (Time.now + 1.day).strftime('%F'))
     end
 
-    it "returns pets for no preferences" do
+    it "returns available pets" do
       customer = build(:customer)
       expect(matching(customer).size).to eq(3)
     end
