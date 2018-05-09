@@ -28,6 +28,7 @@ class PetsController < ApplicationController
   private
 
   def pet_params
+    params[:available_at] ||= Time.now.strftime("%F")
     params.permit(:name, :age, :species, :breed, :available_at)
   end
 
