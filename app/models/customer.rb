@@ -3,6 +3,11 @@ class Customer < ApplicationRecord
   PREF_AGE_MIN = 0
   PREF_AGE_MAX = 500
 
+  # associations
+  has_many :adoptions
+  has_many :pets, through: :adoptions
+
+  # validations
   validates_presence_of :name
 
   # TODO validate preferences; only supported species; breed can be nil but cannot be empty

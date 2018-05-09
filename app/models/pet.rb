@@ -1,4 +1,7 @@
 class Pet < ApplicationRecord
+  # associations
+  has_many :adoptions
+
   # validations
   validates_presence_of :name, :species, :breed, :age
   validates_inclusion_of :species, in: PET_SPECIES
