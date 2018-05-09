@@ -124,4 +124,46 @@ RSpec.describe CustomersController, type: :controller do
     end
   end
 
+  # Get adoption list
+  describe "GET /v1/customers/:id/adoptions" do
+    it "returns no adoptions" do
+      skip('not implemented')
+      get :adoptions, params: {id: 123}
+      expect(response).to have_http_status(200)
+      expect(json_data.size).to eq(0)
+    end
+  end
+
+  # Adopt pet
+  describe "POST /v1/customers/:id/adoptions" do
+    context "success" do
+      let(:pet) { create(:pet) }
+      let(:customer) { create(:customer) }
+
+      it "response status code 201" do
+        expect {
+          post :adopt, params: {id: customer.id, pet_id: pet.id}
+        }.to change(Adoption, :count).by(1)
+        expect(response).to have_http_status(201)
+        expect(pet.reload.adopted_by).to eq(customer.id)
+      end
+    end
+
+    context "fail" do
+      let(:adopted_pet) { create(:adopted_pet) }
+      let(:unavailable_pet) { create(:unavailable_pet) }
+      let(:customer) { create(:customer) }
+
+      it "response 400 for adopted pet" do
+        post :adopt, params: {id: customer.id, pet_id: adopted_pet.id}
+        expect(response).to have_http_status(400)
+      end
+
+      it "response 400 for unavailable pet" do
+        post :adopt, params: {id: customer.id, pet_id: unavailable_pet.id}
+        expect(response).to have_http_status(400)
+      end
+    end
+  end
+
 end
