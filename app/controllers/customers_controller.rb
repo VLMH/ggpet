@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :matching]
+  before_action :set_customer, only: [:show, :matching, :adopt]
 
   PERPAGE = 30
 
@@ -29,14 +29,22 @@ class CustomersController < ApplicationController
     json_response(@customer, {}, :created)
   end
 
-  # Get /customers/:id/matches
+  # GET /customers/:id/matches
   def matching
     json_response(MatchingService.new.match_all_pet_by_customer(@customer))
   end
 
+  # POST /customers/:id/adoptions
+  def adopt
+    pet = Pet.find(params[:pet_id])
+    AdoptionService.new.adopt!(@customer, pet)
+    head :created
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_customer
-      @customer = Customer.find(params[:id])
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_customer
+    @customer = Customer.find(params[:id])
+  end
 end
