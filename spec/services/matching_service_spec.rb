@@ -9,7 +9,7 @@ RSpec.describe MatchingService, type: :service do
       expect(matching.size).to eq(0)
     end
 
-    it "returns a customer" do
+    it "returns a customer who like that breed" do
       preference = {
         pet.species => {
           breed: [pet.breed],
@@ -17,6 +17,20 @@ RSpec.describe MatchingService, type: :service do
       }
       customer = create(:customer, preferences: preference)
 
+      expect(matching.size).to eq(1)
+    end
+
+    it "returns a customer who like that species" do
+      preference = {
+        pet.species => {}
+      }
+      customer = create(:customer, preferences: preference)
+
+      expect(matching.size).to eq(1)
+    end
+
+    it "returns a customer who like any pets" do
+      customer = create(:customer, preferences: nil)
       expect(matching.size).to eq(1)
     end
   end
