@@ -98,4 +98,30 @@ RSpec.describe CustomersController, type: :controller do
     end
   end
 
+  # match pets
+  describe "GET /v1/customers/:id/matches" do
+    it "returns no pets" do
+      customer = create(:customer)
+      get :matching, params: {id: customer.id}
+      expect(response).to have_http_status(200)
+      expect(json_data.size).to eq(0)
+    end
+
+    it "returns a pet" do
+      pet = create(:pet)
+      customer = create(:customer)
+      get :matching, params: {id: customer.id}
+      expect(response).to have_http_status(200)
+      expect(json_data.size).to eq(1)
+    end
+
+    it "returns all matching pets" do
+      pet = create_list(:pet, 5)
+      customer = create(:customer)
+      get :matching, params: {id: customer.id}
+      expect(response).to have_http_status(200)
+      expect(json_data.size).to eq(5)
+    end
+  end
+
 end

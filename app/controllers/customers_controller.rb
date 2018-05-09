@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show]
+  before_action :set_customer, only: [:show, :matching]
 
   PERPAGE = 30
 
@@ -27,6 +27,11 @@ class CustomersController < ApplicationController
       preference_age_max: params[:preference_age_max] || Customer::PREF_AGE_MAX
     )
     json_response(@customer, {}, :created)
+  end
+
+  # Get /customers/:id/matches
+  def matching
+    json_response(MatchingService.new.match_all_pet_by_customer(@customer))
   end
 
   private
