@@ -59,6 +59,12 @@ RSpec.describe PetsController, type: :controller do
         expect(response.status).to eq(201)
         expect(Pet.count).to eq(1)
       end
+
+      it "set today as available_at" do
+        post :create, params: cat.reject { |k, v| k == :available_at }
+        expect(response.status).to eq(201)
+        expect(Pet.first.available_at.strftime("%F")).to eq(Time.now.strftime("%F"))
+      end
     end
 
     context "fail" do
