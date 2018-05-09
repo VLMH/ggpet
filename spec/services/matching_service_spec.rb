@@ -33,5 +33,35 @@ RSpec.describe MatchingService, type: :service do
       customer = create(:customer, preferences: nil)
       expect(matching.size).to eq(1)
     end
+
+    it "returns a customer who like pets with specific age range" do
+      customer = create(
+        :customer,
+        preference_age_min: pet.age,
+        preference_age_max: pet.age
+      )
+      expect(matching.size).to eq(1)
+    end
+
+    it "returns no customers in specific age range" do
+      customer = create(
+        :customer,
+        preference_age_min: pet.age + 1,
+        preference_age_max: pet.age + 2
+      )
+      expect(matching.size).to eq(0)
+    end
+
+    it "returns all matched customers with age preference" do
+      species = pet.species
+      breed = pet.breed
+      age = pet.age
+      age_preference = {preference_age_min: age, preference_age_max: age}
+
+      create(:customer, age_preference)
+      create(:customer, age_preference.merge({preferences: {species => {}}}))
+      create(:customer, age_preference.merge({preferences: {species => {breed: [breed]}}}))
+      expect(matching.size).to eq(3)
+    end
   end
 end
