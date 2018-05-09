@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
+  describe "associations" do
+    it { should have_many(:adoptions) }
+    it { should have_many(:pets).through(:adoptions) }
+  end
+
   describe "validations" do
     it { should validate_presence_of(:name) }
   end
