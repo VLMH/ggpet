@@ -50,8 +50,6 @@ RSpec.describe CustomersController, type: :controller do
           preferences: {
             "dog": {
               breed: ["poodle"],
-              age_min: 2,
-              age_max: 5,
             }
           }
         }
