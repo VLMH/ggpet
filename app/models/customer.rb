@@ -5,6 +5,8 @@ class Customer < ApplicationRecord
 
   validates_presence_of :name
 
+  # TODO validate preferences; only supported species; breed can be nil but cannot be empty
+
   # like any pets
   scope :without_preferences, -> { where("preferences is null") }
 
