@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Pet, type: :model do
   describe "associations" do
     it { should have_many(:adoptions) }
+    it { should belong_to(:adoptor) }
   end
 
   describe "validations" do
