@@ -64,5 +64,14 @@ RSpec.describe Customer, type: :model do
       it { expect(Customer.like_age(20).count).to eq(1) }
       it { expect(Customer.like_age(21).count).to eq(0) }
     end
+
+    context "#no_adoptions" do
+      before(:each) do
+        create(:customer)
+        create(:customer_with_adoption)
+      end
+
+      it { expect(Customer.no_adoptions.count).to eq(1) }
+    end
   end
 end

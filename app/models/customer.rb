@@ -13,22 +13,27 @@ class Customer < ApplicationRecord
   # TODO validate preferences; only supported species; breed can be nil but cannot be empty
 
   # like any pets
-  scope :without_preferences, -> { where("preferences is null") }
+  scope :without_preferences, -> { where("customers.preferences is null") }
 
   # like specific species with any breeds
   scope :like_species, -> (species) do
-    where("preferences ? :species", species: species)
-    .where.not("preferences->:species ? 'breed'", {species: species})
+    where("customers.preferences ? :species", species: species)
+    .where.not("customers.preferences->:species ? 'breed'", {species: species})
   end
 
   # like specific breed
   scope :like_breed, -> (species, breed) do
-    where("preferences#>:path ? :breed", {path: "{#{species}, breed}", breed: breed})
+    where("customers.preferences#>:path ? :breed", {path: "{#{species}, breed}", breed: breed})
   end
 
   # like pet in specific age range
   scope :like_age, -> (age) do
-    where("preference_age_min <= ?", age)
-    .where("preference_age_max >= ?", age)
+    where("customers.preference_age_min <= ?", age)
+    .where("customers.preference_age_max >= ?", age)
+  end
+
+  # has no adoptions
+  scope :no_adoptions, -> do
+    left_outer_joins(:adoptions).where("adoptions.id is null").select("customers.*")
   end
 end
