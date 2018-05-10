@@ -63,6 +63,11 @@ RSpec.describe MatchingService, type: :service do
       create(:customer, age_preference.merge({preferences: {species => {breed: [breed]}}}))
       expect(matching.size).to eq(3)
     end
+
+    it "exclude customer who has adopted pet" do
+      create(:customer_with_adoption)
+      expect(matching.size).to eq(0)
+    end
   end
 
   describe "#match_all_pet_by_customer" do
@@ -104,6 +109,14 @@ RSpec.describe MatchingService, type: :service do
     it "returns no pets matched" do
       customer = build(:customer, preferences: {dog: {breed: ['labrador']}, cat: {}}, preference_age_max: 4)
       expect(matching(customer).size).to eq(0)
+    end
+
+    it "exclude unavailable pets" do
+      skip "to be implemented"
+    end
+
+    it "exclude adopted pets" do
+      skip "to be implemented"
     end
   end
 end
