@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_05_09_105326) do
     t.integer "status", limit: 2, default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["customer_id", "pet_id"], name: "index_adoptions_on_customer_id_and_pet_id", unique: true
     t.index ["customer_id"], name: "index_adoptions_on_customer_id"
     t.index ["pet_id"], name: "index_adoptions_on_pet_id"
   end

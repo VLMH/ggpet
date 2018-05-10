@@ -7,5 +7,6 @@ class CreateAdoptions < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_index :adoptions, [:customer_id, :pet_id], unique: true
   end
 end
