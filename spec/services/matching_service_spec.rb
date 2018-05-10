@@ -112,11 +112,14 @@ RSpec.describe MatchingService, type: :service do
     end
 
     it "exclude unavailable pets" do
-      skip "to be implemented"
+      customer = build(:customer, preferences: {bird: {}})
+      expect(matching(customer).size).to eq(0)
     end
 
     it "exclude adopted pets" do
-      skip "to be implemented"
+      create(:adopted_pet)
+      customer = build(:customer)
+      expect(matching(customer).size).to eq(3)
     end
   end
 end
