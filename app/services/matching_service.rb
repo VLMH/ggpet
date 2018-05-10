@@ -8,14 +8,14 @@ class MatchingService
 
   def match_all_pet_by_customer(customer)
     if (customer.preferences.nil?)
-      return Pet.available.where(age: customer.preference_age_min..customer.preference_age_max)
+      return Pet.adoptable.where(age: customer.preference_age_min..customer.preference_age_max)
     end
 
     preferences = customer.preferences.clone
 
     # first preference
     first_species, first_species_pref = preferences.shift
-    query = Pet.available
+    query = Pet.adoptable
       .where(age: customer.preference_age_min..customer.preference_age_max)
       .where(species: first_species)
 
@@ -25,7 +25,7 @@ class MatchingService
 
     # remaining preferences
     final_query = preferences.reduce(query) do |carry_query, (species, species_pref)|
-      q = Pet.available
+      q = Pet.adoptable
         .where(age: customer.preference_age_min..customer.preference_age_max)
         .where(species: species)
 
