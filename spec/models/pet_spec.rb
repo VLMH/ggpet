@@ -19,10 +19,21 @@ RSpec.describe Pet, type: :model do
     describe "#available" do
       before(:each) do
         create(:pet)
-        create(:pet, available_at: (Time.now + 1.day).strftime('%F'))
+        create(:unavailable_pet)
       end
 
       it { expect(Pet.available.count).to eq(1) }
+    end
+
+    describe "#adoptable" do
+      before(:each) do
+        create(:pet)
+        create(:unavailable_pet)
+        create(:adopted_pet)
+        create(:unadoptable_pet)
+      end
+
+      it { expect(Pet.adoptable.count).to eq(1) }
     end
   end
 

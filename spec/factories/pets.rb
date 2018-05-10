@@ -13,5 +13,10 @@ FactoryBot.define do
     factory :adopted_pet do
       association :adoptor, factory: :customer
     end
+
+    factory :unadoptable_pet do
+      available_at { (Time.now + 1.day).strftime("%F") }
+      association :adoptor, factory: :customer
+    end
   end
 end
