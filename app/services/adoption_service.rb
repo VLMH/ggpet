@@ -4,7 +4,7 @@ class AdoptionService
 
     ActiveRecord::Base.transaction do
       customer.pets << pet
-      customer.save!
+      # customer.save!
 
       pet.adoptor = customer
       pet.save!
