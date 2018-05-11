@@ -12,6 +12,9 @@ class Customer < ApplicationRecord
 
   # TODO validate preferences; only supported species; breed can be nil but cannot be empty
 
+  # scopes
+  default_scope { order(:id) }
+
   # like any pets
   scope :without_preferences, -> { where("customers.preferences is null") }
 

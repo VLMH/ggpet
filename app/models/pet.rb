@@ -9,6 +9,7 @@ class Pet < ApplicationRecord
   validates_numericality_of :age, only_integer: true
 
   # scopes
+  default_scope { order(:id) }
   scope :available, -> { where("pets.available_at <= ?", Time.now.strftime('%F'))}
   scope :adoptable, -> { available.where("pets.adopted_by is null")}
 
