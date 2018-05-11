@@ -124,16 +124,6 @@ RSpec.describe CustomersController, type: :controller do
     end
   end
 
-  # Get adoption list
-  describe "GET /v1/customers/:id/adoptions" do
-    it "returns no adoptions" do
-      skip('not implemented')
-      get :adoptions, params: {id: 123}
-      expect(response).to have_http_status(200)
-      expect(json_data.size).to eq(0)
-    end
-  end
-
   # Adopt pet
   describe "POST /v1/customers/:id/adoptions" do
     context "success" do
