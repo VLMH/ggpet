@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     resources :customers, only: [:index, :show, :create] do
       member do
         get "matches", action: "matching"
-        get "adoptions", action: "adoptions"
         post "adoptions", action: "adopt"
       end
     end
