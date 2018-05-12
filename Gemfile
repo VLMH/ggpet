@@ -13,6 +13,8 @@ gem 'puma', '~> 3.11'
 gem 'active_model_serializers', '~> 0.10.0'
 # Pagination
 gem 'kaminari', '~> 1.1.1'
+# Pusher
+gem 'pusher', '~> 1.3', '>= 1.3.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
