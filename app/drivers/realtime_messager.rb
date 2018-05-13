@@ -2,8 +2,8 @@ require 'pusher'
 
 # A wrapper to external realtime service
 class RealtimeMessager
-  CHANNEL_CUSTOMER_LIST = 'customer-list'
-  EVENT_CUSTOMER_CREATED = 'customer-created'
+  CHANNEL_MATCHING_PETS = 'matching-pets'
+  EVENT_PET_CREATED = 'pet-created'
 
   def publish(channel, event, message)
     Pusher.trigger(channel, event, {

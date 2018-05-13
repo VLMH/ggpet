@@ -44,6 +44,10 @@ RSpec.describe PetsController, type: :controller do
   # create pets
   describe "POST /v1/pets" do
     context "success" do
+      before(:each) do
+        expect(BroadcastPetCreatedJob).to receive(:perform_later).once
+      end
+
       let(:cat) do
         {
           name: "Bagel",
@@ -68,6 +72,10 @@ RSpec.describe PetsController, type: :controller do
     end
 
     context "fail" do
+      before(:each) do
+        expect(BroadcastPetCreatedJob).not_to receive(:perform_later)
+      end
+
       it "response status code 422 for invalid params" do
         post :create
         expect(response.status).to eq(422)
