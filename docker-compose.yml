@@ -10,3 +10,9 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: ggpet_development
+  redis:
+    image: redis:3.2-alpine
+    volumes:
+      - ~/.ggpet/redis:/data
+    ports:
+      - 6379:6379
