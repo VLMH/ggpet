@@ -18,7 +18,7 @@ class PetsController < ApplicationController
 
   def create
     @pet = Pet.create!(pet_params)
-    BroadcastPetCreatedJob.perform_later @pet
+    BroadcastNewPetMatchingJob.perform_later @pet
     json_response(@pet, {}, :created)
   end
 
