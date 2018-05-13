@@ -1,4 +1,4 @@
-class BroadcastPetCreatedJob < ApplicationJob
+class BroadcastNewPetMatchingJob < ApplicationJob
   queue_as :default
 
   def perform(pet)
