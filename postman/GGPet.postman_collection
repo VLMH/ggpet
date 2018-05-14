@@ -1,0 +1,233 @@
+{
+	"variables": [],
+	"info": {
+		"name": "GGPet",
+		"_postman_id": "8151283c-bf9d-10d5-5fbb-8d0cfad113cb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/v1/pets",
+			"request": {
+				"url": "http://localhost:3000/v1/pets",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Rocky\",\n\t\"species\": \"dog\",\n\t\"breed\": \"labrador\",\n\t\"age\": 5,\n\t\"available_at\": \"2018-05-14\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/pets",
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/v1/pets?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"pets"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Bagel\",\n\t\"species\": \"cat\",\n\t\"breed\": \"shorthair\",\n\t\"age\": 10,\n\t\"available_at\": \"2018-05-06\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/pets/:id",
+			"request": {
+				"url": "http://localhost:3000/v1/pets/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Bagel\",\n\t\"species\": \"cat\",\n\t\"breed\": \"shorthair\",\n\t\"age\": 10,\n\t\"available_at\": \"2018-05-06\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/pets/:id/matches",
+			"request": {
+				"url": "http://localhost:3000/v1/pets/1/matches",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Bagel\",\n\t\"species\": \"cat\",\n\t\"breed\": \"shorthair\",\n\t\"age\": 10,\n\t\"available_at\": \"2018-05-06\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/customers",
+			"request": {
+				"url": "http://localhost:3000/v1/customers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Victor\",\n\t\"preferences\": {\n\t\t\"dog\": {}\n\t},\n\t\"preference_age_min\": 3,\n\t\"preference_age_max\": 10\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/customers",
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/v1/customers?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Bagel\",\n\t\"species\": \"cat\",\n\t\"breed\": \"shorthair\",\n\t\"age\": 10,\n\t\"available_at\": \"2018-05-06\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/customers/:id",
+			"request": {
+				"url": "http://localhost:3000/v1/customers/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Bagel\",\n\t\"species\": \"cat\",\n\t\"breed\": \"shorthair\",\n\t\"age\": 10,\n\t\"available_at\": \"2018-05-06\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/customers/:id/matches",
+			"request": {
+				"url": "http://localhost:3000/v1/customers/1/matches",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Bagel\",\n\t\"species\": \"cat\",\n\t\"breed\": \"shorthair\",\n\t\"age\": 10,\n\t\"available_at\": \"2018-05-06\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/v1/customers/1/adoptions",
+			"request": {
+				"url": "http://localhost:3000/v1/customers/1/adoptions",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"pet_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
