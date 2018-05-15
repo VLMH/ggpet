@@ -1,24 +1,62 @@
-# README
+# Setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirement
+- Ruby `2.2.2` (using `2.5.1` for development)
+- Bundler (`gem install bundler`)
+- Docker
+- Docker compose
+- PostgreSQL (for install gem `pg`)
 
-Things you may want to cover:
+## Installation
+1. `$ git clone git@github.com:VLMH/ggpet.git`
+2. `$ cd ggpet`
+3. `$ docker-compose up -d db redis`
+4. `$ bundle`
+5. `$ rails db:create`
+6. `$ rails db:migrate`
+7. `$ rails s`
 
-* Ruby version
+## How to test API?
+1. Install Postman https://www.getpostman.com/apps
+2. Import Postman collection `/postman/GGPet.postman_collection`
 
-* System dependencies
+## Insert seed data
+Run `$ rails db:seed`
+This will create 6 pets, 8 customers according to `/app-root/db/seeds.rb`
 
-* Configuration
+## Extension 1 - Realtime matching
+1. copy `.env` from email to `/app-root/.env`
+2. `$ bundle exec sidekiq`
+3. `$ open /app-root/public/matching.html` or open `/app-root/public/matching.html` in browser
+4. Input customer ID and click subscribe
+5. Add new pet via Postman
+6. You should see new pet appended to the list if the pet matches the customer
 
-* Database creation
+## Extension 2 - Geolocation
+Since I don't have time for this, I briefly explain how it can be implemented.
 
-* Database initialization
+**Backend**
+- Add `latitude`, `longitude` to Pet
+- Get customer location `(lat, lon)`
+- By using gem 'geocoder', query pets near customer (https://github.com/alexreisner/geocoder#for-activerecord-models)
+- Make use of `/v1/customers/:id/matches` and return result
 
-* How to run the test suite
+**Frontend**
+- When open `matching.html`, get permission to retrieve geolocation
+- Pass `(lat, lon)` to API server, when subscribe to a customer
+- Display pet locations in map (e.g. Google Map) and result should be sorted by distance
 
-* Services (job queues, cache servers, search engines, etc.)
+## Extension 3 - Scaling
+To handle increacing requests, we have to protect the database so that we can scale up server instances.
 
-* Deployment instructions
+The first thing to do is to impose repository as a way to access data.
 
-* ...
+With repository, we can enable the followings with minimum code affected
+1. create database read replica
+    - handle multiple database connection
+2. add caching layer before hit database
+    - e.g. get data from Memcache
+
+However, my code extracted services, drivers to separate logic but not repository and is still highly rely on ORM (ActiveRecord). A refactoring is needed before scale up.
+
+Reference: https://blog.lelonek.me/why-is-your-rails-application-still-coupled-to-activerecord-efe34d657c91
