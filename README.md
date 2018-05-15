@@ -57,6 +57,6 @@ With repository, we can enable the followings with minimum code affected
 2. add caching layer before hit database
     - e.g. get data from Memcache
 
-However, my code extracted services, drivers to separate logic but not repository and is still highly rely on ORM (ActiveRecord). A refactoring is needed before scale up.
+However, my code extracted services, drivers to separate logic but not repository and is still highly rely on ORM (ActiveRecord). Better do a refactoring before scale up.
 
 Reference: https://blog.lelonek.me/why-is-your-rails-application-still-coupled-to-activerecord-efe34d657c91
