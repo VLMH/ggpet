@@ -32,6 +32,8 @@ This will create 6 pets, 8 customers according to `/app-root/db/seeds.rb`
 5. Add new pet via Postman
 6. You should see new pet appended to the list if the pet matches the customer
 
+> There is an issue that the list of customers who adopted pets cannot be updated.
+
 ## Extension 2 - Geolocation
 Since I don't have time for this, I briefly explain how it can be implemented.
 
